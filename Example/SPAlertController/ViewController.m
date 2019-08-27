@@ -428,6 +428,33 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
+- (void)alertTest8 {
+    SPAlertController *alertController = [SPAlertController alertControllerWithTitle:@"我是主标题" message:@"我是副标题" preferredStyle:SPAlertControllerStyleAlert animationType:SPAlertAnimationTypeDefault];
+    alertController.needDialogBlur = _lookBlur;
+    alertController.backgroundColor = [UIColor colorWithRed:31.0/255.0 green:31.0/255.0 blue:31.0/255.0 alpha:1.0];
+    alertController.titleColor = [UIColor colorWithWhite:1.0 alpha:0.9];
+    alertController.messageColor = [UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.0];
+    alertController.separatorColor = [UIColor colorWithRed:65.0/255.0 green:65.0/255.0 blue:65.0/255.0 alpha:1.0];
+    
+    SPAlertAction *action1 = [SPAlertAction actionWithTitle:@"确定" style:SPAlertActionStyleDefault handler:^(SPAlertAction * _Nonnull action) {
+        NSLog(@"点击了确定");
+    }];
+    action1.titleColor = [UIColor colorWithWhite:1.0 alpha:0.9];
+    
+    
+    // SPAlertActionStyleDestructive默认文字为红色(可修改)
+    SPAlertAction *action2 = [SPAlertAction actionWithTitle:@"取消" style:SPAlertActionStyleDestructive handler:^(SPAlertAction * _Nonnull action) {
+        NSLog(@"点击了取消");
+    }];
+    // 设置第2个action的颜色
+    action2.titleColor = [UIColor colorWithRed:0/255.0 green:82.0/255.0 blue:255.0/255.0 alpha:1.0];
+    
+    [alertController addAction:action2];
+    [alertController addAction:action1];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
 #pragma mark ========================================== 富文本样式示例 =======================================================
 
 // 示例16:富文本(action设置富文本)
@@ -992,7 +1019,7 @@
     self.dataSource = @[
                         @[@"actionSheet样式 默认动画(从底部弹出,有取消按钮)",@"actionSheet样式 默认动画(从底部弹出,无取消按钮)",@"actionSheet样式 从顶部弹出(无标题)",@"actionSheet样式 从顶部弹出(有标题)",@"actionSheet样式 水平排列（有取消样式按钮）",@"actionSheet样式 水平排列（无取消样式按钮)",@"actionSheet样式 action含图标",@"actionSheet样式 模拟多分区样式(>=iOS11才支持)"
                           ],
-                        @[@"alert样式 默认动画(收缩动画)",@"alert样式 发散动画",@"alert样式 渐变动画",@"alert样式 垂直排列2个按钮",@"alert样式 水平排列2个以上的按钮",@"alert样式 设置头部图标",@"alert样式 含有文本输入框"
+                        @[@"alert样式 默认动画(收缩动画)",@"alert样式 发散动画",@"alert样式 渐变动画",@"alert样式 垂直排列2个按钮",@"alert样式 水平排列2个以上的按钮",@"alert样式 设置头部图标",@"alert样式 含有文本输入框",@"alert样式 自定义样式"
                           ],
                         @[@"富文本(action设置富文本)",@"富文本(头部设置富文本)"
                           ],
@@ -1187,6 +1214,9 @@
                 break;
             case 6:
                 [self alertTest7];
+                break;
+            case 7:
+                [self alertTest8];
                 break;
         }
     } else if (indexPath.section == 2) { // 富文本区
