@@ -119,6 +119,10 @@ typedef NS_ENUM(NSInteger, SPBackgroundViewAppearanceStyle) {
 /** 头部图标的限制大小,默认无穷大 */
 @property (nonatomic, assign) CGSize imageLimitSize;
 
+// FD追加
+@property (nonatomic, strong) UIColor *backgroundColor;
+@property (nonatomic, strong) UIColor *separatorColor;
+
 /*
  * action水平排列还是垂直排列
  * actionSheet样式下:默认为UILayoutConstraintAxisVertical(垂直排列), 如果设置为UILayoutConstraintAxisHorizontal(水平排列)，则除去取消样式action之外的其余action将水平排列

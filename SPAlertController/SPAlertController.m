@@ -145,18 +145,29 @@
 #pragma mark ---------------------------- SPInterfaceActionItemSeparatorView begin --------------------------------
 
 @interface SPInterfaceActionItemSeparatorView : UIView
+
+// FD追加
+@property (nonatomic, strong) UIColor *separatorColor;
+
 @end
 @implementation SPInterfaceActionItemSeparatorView
 - (instancetype)init {
     if (self = [super init]) {
-        self.backgroundColor = SP_LINE_COLOR;
+        self.backgroundColor = self.separatorColor;
     }
     return self;
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.backgroundColor = self.frame.size.height > SP_LINE_WIDTH ? [[UIColor grayColor] colorWithAlphaComponent:0.15] : SP_LINE_COLOR;
+
+    NSLog(@"self.frame.size.height==%f", self.frame.size.height);
+    NSLog(@"SP_LINE_WIDTH==%f", SP_LINE_WIDTH);
+    
+    
+//    self.backgroundColor = self.frame.size.height > SP_LINE_WIDTH ? [[UIColor grayColor] colorWithAlphaComponent:0.15] : self.separatorColor;
+//    
+    self.backgroundColor = self.separatorColor;
 }
 
 @end
@@ -455,7 +466,7 @@
 }
 
 - (void)touchDragExit:(UIButton *)sender {
-    sender.backgroundColor = SP_NORMAL_COLOR;
+    sender.backgroundColor = self.backgroundColor;
 }
 
 - (SPAlertController *)findAlertController {
@@ -524,7 +535,7 @@ UIEdgeInsets UIEdgeInsetsAddEdgeInsets(UIEdgeInsets i1,UIEdgeInsets i2) {
 - (UIButton *)actionButton {
     if (!_actionButton) {
         UIButton *actionButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        actionButton.backgroundColor = SP_NORMAL_COLOR;
+        actionButton.backgroundColor = self.backgroundColor;
         actionButton.translatesAutoresizingMaskIntoConstraints = NO;
         actionButton.titleLabel.textAlignment = NSTextAlignmentCenter;
         actionButton.titleLabel.adjustsFontSizeToFitWidth = YES;
@@ -556,6 +567,10 @@ UIEdgeInsets UIEdgeInsetsAddEdgeInsets(UIEdgeInsets i1,UIEdgeInsets i2) {
 @property (nonatomic, assign) UIStackViewDistribution stackViewDistribution;
 @property (nonatomic, assign) UILayoutConstraintAxis axis;
 @property (nonatomic, copy) void (^buttonClickedInActionViewBlock)(NSInteger index);
+
+// FD追加
+@property (nonatomic, strong) UIColor *separatorColor;
+
 @end
 
 @implementation SPInterfaceActionSequenceView
@@ -604,6 +619,7 @@ UIEdgeInsets UIEdgeInsetsAddEdgeInsets(UIEdgeInsets i1,UIEdgeInsets i2) {
     UIStackView *stackView = self.stackView;
 
     SPAlertControllerActionView *currentActionView = [[SPAlertControllerActionView alloc] init];
+    currentActionView.backgroundColor = self.backgroundColor;
     currentActionView.action = action;
     [currentActionView addTarget:self action:@selector(buttonClickedInActionView:)];
     [stackView addArrangedSubview:currentActionView];
@@ -620,6 +636,7 @@ UIEdgeInsets UIEdgeInsetsAddEdgeInsets(UIEdgeInsets i1,UIEdgeInsets i2) {
     _cancelAction = action;
     [self.actions addObject:action];
     SPAlertControllerActionView *cancelActionView = [[SPAlertControllerActionView alloc] init];
+    cancelActionView.backgroundColor = self.backgroundColor;
     cancelActionView.translatesAutoresizingMaskIntoConstraints = NO;
     cancelActionView.action = action;
     [cancelActionView addTarget:self action:@selector(buttonClickedInActionView:)];
@@ -633,6 +650,7 @@ UIEdgeInsets UIEdgeInsetsAddEdgeInsets(UIEdgeInsets i1,UIEdgeInsets i2) {
 // 为stackView添加分割线(细节)
 - (void)addLineForStackView:(UIStackView *)stackView {
     SPInterfaceActionItemSeparatorView *actionLine = [[SPInterfaceActionItemSeparatorView alloc] init];
+    actionLine.separatorColor = self.separatorColor;
     actionLine.translatesAutoresizingMaskIntoConstraints = NO;
     // 这里必须用addSubview:，不能用addArrangedSubview:,因为分割线不参与排列布局
     [stackView addSubview:actionLine];
@@ -767,6 +785,7 @@ UIEdgeInsets UIEdgeInsetsAddEdgeInsets(UIEdgeInsets i1,UIEdgeInsets i2) {
         UIScrollView *scrollView = [[UIScrollView alloc] init];
         scrollView.showsHorizontalScrollIndicator = NO;
         scrollView.translatesAutoresizingMaskIntoConstraints = NO;
+        scrollView.backgroundColor = self.backgroundColor;
         if (@available(iOS 11.0, *)) {
             scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
@@ -816,6 +835,7 @@ UIEdgeInsets UIEdgeInsetsAddEdgeInsets(UIEdgeInsets i1,UIEdgeInsets i2) {
 - (SPInterfaceActionItemSeparatorView *)cancelActionLine {
     if (!_cancelActionLine) {
         SPInterfaceActionItemSeparatorView *cancelActionLine = [[SPInterfaceActionItemSeparatorView alloc] init];
+        cancelActionLine.separatorColor = self.separatorColor;
         cancelActionLine.translatesAutoresizingMaskIntoConstraints = NO;
         if (self.cancelView.superview && self.scrollView.superview) {
             [self addSubview:cancelActionLine];
@@ -1114,6 +1134,10 @@ UIEdgeInsets UIEdgeInsetsAddEdgeInsets(UIEdgeInsets i1,UIEdgeInsets i2) {
     _tapBackgroundViewDismiss = YES;
     _needDialogBlur = NO;
     _maxNumberOfActionHorizontalArrangementForAlert = 2;
+    
+    // FD追加
+    _backgroundColor = SP_NORMAL_COLOR;
+    _separatorColor = SP_LINE_COLOR;
 }
 
 - (void)layoutAlertControllerView {
@@ -1914,7 +1938,7 @@ UIEdgeInsets UIEdgeInsetsAddEdgeInsets(UIEdgeInsets i1,UIEdgeInsets i2) {
 - (SPInterfaceHeaderScrollView *)headerView {
     if (!_headerView) {
         SPInterfaceHeaderScrollView *headerView = [[SPInterfaceHeaderScrollView alloc] init];
-        headerView.backgroundColor = SP_NORMAL_COLOR;
+        headerView.backgroundColor = self.backgroundColor;
         headerView.translatesAutoresizingMaskIntoConstraints = NO;
         __weak typeof(self) weakSelf = self;
         headerView.headerViewSfeAreaDidChangBlock = ^{
@@ -1948,6 +1972,8 @@ UIEdgeInsets UIEdgeInsetsAddEdgeInsets(UIEdgeInsets i1,UIEdgeInsets i2) {
 - (SPInterfaceActionSequenceView *)actionSequenceView {
     if (!_actionSequenceView) {
         SPInterfaceActionSequenceView *actionSequenceView = [[SPInterfaceActionSequenceView alloc] init];
+        actionSequenceView.backgroundColor = self.backgroundColor;
+        actionSequenceView.separatorColor = self.separatorColor;
         actionSequenceView.translatesAutoresizingMaskIntoConstraints = NO;
         __weak typeof(self) weakSelf = self;
         actionSequenceView.buttonClickedInActionViewBlock = ^(NSInteger index) {
@@ -1982,6 +2008,7 @@ UIEdgeInsets UIEdgeInsetsAddEdgeInsets(UIEdgeInsets i1,UIEdgeInsets i2) {
 - (SPInterfaceActionItemSeparatorView *)headerActionLine {
     if (!_headerActionLine) {
         SPInterfaceActionItemSeparatorView *headerActionLine = [[SPInterfaceActionItemSeparatorView alloc] init];
+        headerActionLine.separatorColor = self.separatorColor;
         headerActionLine.translatesAutoresizingMaskIntoConstraints = NO;
         if ((self.headerView.superview || self.customHeaderView.superview) && (self.actionSequenceView.superview || self.customActionSequenceView.superview)) {
             [self.alertView addSubview:headerActionLine];
@@ -2008,6 +2035,7 @@ UIEdgeInsets UIEdgeInsetsAddEdgeInsets(UIEdgeInsets i1,UIEdgeInsets i2) {
 - (SPInterfaceActionItemSeparatorView *)componentActionLine {
     if (!_componentActionLine) {
         SPInterfaceActionItemSeparatorView *componentActionLine = [[SPInterfaceActionItemSeparatorView alloc] init];
+        componentActionLine.separatorColor = self.separatorColor;
         componentActionLine.translatesAutoresizingMaskIntoConstraints = NO;
         // 必须组件view和action部分同时存在
         if (self.componentView.superview && (self.actionSequenceView.superview || self.customActionSequenceView.superview)) {
