@@ -1,5 +1,4 @@
-
-# 3.0版本开始有极大的优化，由于采用了iOS9之后推出的UIStackView，因此3.0之后的版本只支持iOS9及其以上系统
+# 重大更新：4.0.0版本适配深色模式
 # SPAlertController
 [![Build Status](http://img.shields.io/travis/SPStore/SPAlertController.svg?style=flat)](https://travis-ci.org/SPStore/SPAlertController)
 [![Pod Version](http://img.shields.io/cocoapods/v/SPAlertController.svg?style=flat)](http://cocoadocs.org/docsets/SPAlertController/)
@@ -11,27 +10,29 @@
 * [CocoaPods](#CocoaPods) 
 * [使用示例](#使用示例)
 * [API及属性详解](#API及属性详解) 
-* [自定义各大View](#自定义各大View)
+* [自定义View](#自定义View)
+* [深色模式预览](#深色模式预览)
 * [历史版本](#历史版本)
 
 ## 功能特点
-- [x] 采用VFL布局，3.0版本开始核心控件为UIStackView，风格与微信几乎零误差
-- [x] 3.0版本开始对话框头部新增图片设置
-- [x] 3.0版本开始action支持图片设置
+- [x] 采用VFL布局，3.0版本开始，核心控件为UIStackView，风格与微信几乎零误差
+- [x] 3.0版本开始，对话框头部新增图片设置
+- [x] 3.0版本开始，action支持图片设置
 - [x] 3.0版本开始，iOS11及其以上系统可单独设置指定action后的间距
-- [x] 3.0版本开始支持富文本
+- [x] 3.0版本开始，支持富文本
 - [x] action的排列可灵活设置垂直排列和水平排列
 - [x] 每个action的高度自适应
 - [x] 支持旋转(横竖屏)
 - [x] 可以自定义各种UIView
 - [x] 支持对话框毛玻璃和背景蒙层毛玻璃
 - [x] 全面适配iPhoneX，iPhoneXR，iPhoneXS，iPhoneXS MAX
+- [x] 全面适配深色模式
 ## CocoaPods
-##### 版本3.1.0
+##### 版本4.0.0
 ```
 platform:ios,'9.0'
 target 'MyApp' do
-  pod 'SPAlertController', '~> 3.1.0'
+  pod 'SPAlertController', '~> 4.0.0'
 end
 ```
 
@@ -171,7 +172,7 @@ SPAlertControllerStyleAlert下的圆角半径
 
 ![image](https://github.com/SPStore/SPAlertController/blob/master/Images/6AAAA07F90853F52CA6166D815F619A9.jpg)
 
-## 自定义各大View
+## 自定义View
 * 自定义对话框的头部
 ```
 + (instancetype)alertControllerWithCustomHeaderView:(nullable UIView *)customHeaderView preferredStyle:(SPAlertControllerStyle)preferredStyle animationType:(SPAlertAnimationType)animationType;
@@ -195,9 +196,25 @@ SPAlertControllerStyleAlert下的圆角半径
 * 自动布局，如果宽度和高度都能由子控件撑起来，那么你不需要设置frame，否则，宽度和高度只要有其中一个无法由子控件撑起，那么就必须设置其值，比如高度能被子控件撑起来，而宽度不能，那么你就必须手动设置一个宽度，高度可以不用设置或者设置为0都可。如果是xib或者storyboard，若自定义的view无法由子控件撑起来，SPAlertController会读取xib/storyboard中的默认frame，如果不合适，那么你应该修改xib/storyboard中的默认frame或者用纯代码重新设置frame。如果自定义view的宽度能够被子控件撑起，但同时又手动设置了自定义view的宽度，那么SPAlertController会取自动撑起的宽度和手动设置的宽度中较大的那个，高度同理。有一种情况要值得注意：如果子控件类似按钮这种不设置大小就自动会产生大小的子控件，同时该按钮设置了左右间距，那么它就能将自定义的view的宽度撑起，但是这种撑起来的宽度可能并非你想要的，因为按钮宽度是由内容自动产生，不是你设置的，这时你应该手动设置按钮的宽度，以便自定义的view的宽度被撑起的恰到好处，或者手动设置自定义view的宽度，这个手动设置的宽度，应该要比没有手动设置宽度的按钮将自定义view撑起来的宽度要大。
 * 当自定义的view的大小在对话框显示期间发生了变化，你应该调用```- (void)updateCustomViewSize:(CGSize)size```通知SPAlertController更新其大小
 
+## 深色模式预览
+[![](https://raw.githubusercontent.com/wiki/SPStore/SPAlertController/Screetshots/1-small.jpg)](https://raw.githubusercontent.com/wiki/SPStore/SPAlertController/Screetshots/1.jpg)
+[![](https://raw.githubusercontent.com/wiki/SPStore/SPAlertController/Screetshots/2-small.jpg)](https://raw.githubusercontent.com/wiki/SPStore/SPAlertController/Screetshots/2.jpg)
+[![](https://raw.githubusercontent.com/wiki/SPStore/SPAlertController/Screetshots/3-small.jpg)](https://raw.githubusercontent.com/wiki/SPStore/SPAlertController/Screetshots/3.jpg)
+[![](https://raw.githubusercontent.com/wiki/SPStore/SPAlertController/Screetshots/4-small.jpg)](https://raw.githubusercontent.com/wiki/SPStore/SPAlertController/Screetshots/4.jpg)
+[![](https://raw.githubusercontent.com/wiki/SPStore/SPAlertController/Screetshots/5-small.jpg)](https://raw.githubusercontent.com/wiki/SPStore/SPAlertController/Screetshots/5.jpg)
+[![](https://raw.githubusercontent.com/wiki/SPStore/SPAlertController/Screetshots/6-small.jpg)](https://raw.githubusercontent.com/wiki/SPStore/SPAlertController/Screetshots/6.jpg)
+[![](https://raw.githubusercontent.com/wiki/SPStore/SPAlertController/Screetshots/7-small.jpg)](https://raw.githubusercontent.com/wiki/SPStore/SPAlertController/Screetshots/7.jpg)
+[![](https://raw.githubusercontent.com/wiki/SPStore/SPAlertController/Screetshots/8-small.jpg)](https://raw.githubusercontent.com/wiki/SPStore/SPAlertController/Screetshots/8.jpg)
+[![](https://raw.githubusercontent.com/wiki/SPStore/SPAlertController/Screetshots/9-small.jpg)](https://raw.githubusercontent.com/wiki/SPStore/SPAlertController/Screetshots/9.jpg)
+[![](https://raw.githubusercontent.com/wiki/SPStore/SPAlertController/Screetshots/10-small.jpg)](https://raw.githubusercontent.com/wiki/SPStore/SPAlertController/Screetshots/10.jpg)
+[![](https://raw.githubusercontent.com/wiki/SPStore/SPAlertController/Screetshots/11-small.jpg)](https://raw.githubusercontent.com/wiki/SPStore/SPAlertController/Screetshots/11.jpg)
+[![](https://raw.githubusercontent.com/wiki/SPStore/SPAlertController/Screetshots/12-small.jpg)](https://raw.githubusercontent.com/wiki/SPStore/SPAlertController/Screetshots/12.jpg)
+[![](https://raw.githubusercontent.com/wiki/SPStore/SPAlertController/Screetshots/13-small.jpg)](https://raw.githubusercontent.com/wiki/SPStore/SPAlertController/Screetshots/13.jpg)
+[![](https://raw.githubusercontent.com/wiki/SPStore/SPAlertController/Screetshots/14-small.jpg)](https://raw.githubusercontent.com/wiki/SPStore/SPAlertController/Screetshots/14.jpg)
 ## 历史版本
 |  版本 | 更新日期 | 支持最低系统版本 |更新内容 |
 | :------------:| :------------:| :------------:|------------|
+|v4.0.0|2020.04.27|iOS9.0|适配深色模式|
 |v3.1.0|2019.08.08|iOS9.0|1、actionSheet样式加了单边圆角效果<br>2、毛玻璃默认为NO<br>3、当不需要毛玻璃效果时,actionButton的选中背景色修改(灰度0.1)，属于bug修复<br>4、“取消action”上的分割线背景色修改(灰度由0.3变为0.2)，高度由6增加为8<br>5、每个actionButton的最小高度由49变为55|
 |v3.0.4|2019.06.03|iOS9.0|修复了tapBackgroundViewDismiss属性无效问题|
 |v3.0.3|2019.05.30|iOS9.0|修复了action点击的回调为nil时闪退问题|

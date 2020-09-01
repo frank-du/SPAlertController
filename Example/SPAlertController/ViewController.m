@@ -16,6 +16,7 @@
 #import "PopView.h"
 #import "ScoreView.h"
 #import "PickerView.h"
+#import "UIColor+DarkMode.h"
 
 #define ScreenWidth [UIScreen mainScreen].bounds.size.width
 #define ScreenHeight [UIScreen mainScreen].bounds.size.height
@@ -23,7 +24,7 @@
 
 // RGB颜色
 #define SPColorRGBA(r, g, b, a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
-#define SYSTEM_COLOR [UIColor colorWithRed:0.0 green:0.48 blue:1.0 alpha:1.0]
+#define SYSTEM_BLUE_COLOR [UIColor colorWithRed:0.0 green:0.48 blue:1.0 alpha:1.0]
 
 // 随机色
 #define SPRandomColor ZCColorRGBA(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256),1)
@@ -134,8 +135,7 @@
     SPAlertAction *action1 = [SPAlertAction actionWithTitle:@"第1个" style:SPAlertActionStyleDefault handler:^(SPAlertAction * _Nonnull action) {
         NSLog(@"点击了第1个");
     }];
-    // SPAlertActionStyleDestructive默认文字为红色(可修改)
-    SPAlertAction *action2 = [SPAlertAction actionWithTitle:@"第2个" style:SPAlertActionStyleDestructive handler:^(SPAlertAction * _Nonnull action) {
+    SPAlertAction *action2 = [SPAlertAction actionWithTitle:@"第2个" style:SPAlertActionStyleDefault handler:^(SPAlertAction * _Nonnull action) {
         NSLog(@"点击了第2个");
     }];
     SPAlertAction *action3 = [SPAlertAction actionWithTitle:@"第3个" style:SPAlertActionStyleDefault handler:^(SPAlertAction * _Nonnull action) {
@@ -164,8 +164,7 @@
     SPAlertAction *action1 = [SPAlertAction actionWithTitle:@"第1个" style:SPAlertActionStyleDefault handler:^(SPAlertAction * _Nonnull action) {
         NSLog(@"点击了第1个");
     }];
-    // SPAlertActionStyleDestructive默认文字为红色(可修改)
-    SPAlertAction *action2 = [SPAlertAction actionWithTitle:@"第2个" style:SPAlertActionStyleDestructive handler:^(SPAlertAction * _Nonnull action) {
+    SPAlertAction *action2 = [SPAlertAction actionWithTitle:@"第2个" style:SPAlertActionStyleDefault handler:^(SPAlertAction * _Nonnull action) {
         NSLog(@"点击了第2个");
     }];
     SPAlertAction *action3 = [SPAlertAction actionWithTitle:@"第3个" style:SPAlertActionStyleDefault handler:^(SPAlertAction * _Nonnull action) {
@@ -189,13 +188,15 @@
     SPAlertAction *action1 = [SPAlertAction actionWithTitle:@"视频通话" style:SPAlertActionStyleDefault handler:^(SPAlertAction * _Nonnull action) {
         NSLog(@"点击了‘视频通话’");
     }];
-    action1.image = [UIImage imageNamed:@"video"];
+    action1.image = [[UIImage imageNamed:@"video"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    action1.tintColor = [UIColor colorPairsWithLightColor:[UIColor blackColor] darkColor:[UIColor whiteColor]];
     action1.imageTitleSpacing = 5;
     
     SPAlertAction *action2 = [SPAlertAction actionWithTitle:@"语音通话" style:SPAlertActionStyleDefault handler:^(SPAlertAction * _Nonnull action) {
         NSLog(@"点击了‘语音通话’");
     }];
-    action2.image = [UIImage imageNamed:@"telephone"];
+    action2.image = [[UIImage imageNamed:@"telephone"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    action2.tintColor = [UIColor colorPairsWithLightColor:[UIColor blackColor] darkColor:[UIColor whiteColor]];
     action2.imageTitleSpacing = 5;
     
     SPAlertAction *action3 = [SPAlertAction actionWithTitle:@"取消" style:SPAlertActionStyleCancel handler:^(SPAlertAction * _Nonnull action) {
@@ -235,7 +236,7 @@
     SPAlertAction *action7 = [SPAlertAction actionWithTitle:@"取消" style:SPAlertActionStyleCancel handler:^(SPAlertAction * _Nonnull action) {
         NSLog(@"取消");
     }];
-    action7.titleColor = SYSTEM_COLOR;
+    action7.titleColor = SYSTEM_BLUE_COLOR;
     // 注:在addAction之后设置action的文字颜色和字体同样有效
     [alertController addAction:action1];
     [alertController addAction:action2];
@@ -270,7 +271,7 @@
         NSLog(@"点击了取消");
     }];
     // 设置第2个action的颜色
-    action2.titleColor = SYSTEM_COLOR;
+    action2.titleColor = SYSTEM_BLUE_COLOR;
     [alertController addAction:action2];
     [alertController addAction:action1];
 
@@ -285,7 +286,7 @@
         NSLog(@"点击了第1个");
     }];
     // 设置第1个action的颜色
-    action1.titleColor = SYSTEM_COLOR;
+    action1.titleColor = SYSTEM_BLUE_COLOR;
     // SPAlertActionStyleDestructive默认文字为红色(可修改)
     SPAlertAction *action2 = [SPAlertAction actionWithTitle:@"第2个" style:SPAlertActionStyleDestructive handler:^(SPAlertAction * _Nonnull action) {
         NSLog(@"点点击了第2个");
@@ -307,7 +308,7 @@
         NSLog(@"点击了确定");
     }];
     // 设置第1个action的字体
-    action1.titleColor = SYSTEM_COLOR;
+    action1.titleColor = SYSTEM_BLUE_COLOR;
     
     // SPAlertActionStyleDestructive默认文字为红色(可修改)
     SPAlertAction *action2 = [SPAlertAction actionWithTitle:@"取消" style:SPAlertActionStyleDestructive handler:^(SPAlertAction * _Nonnull action) {
@@ -338,7 +339,7 @@
     SPAlertAction *action2 = [SPAlertAction actionWithTitle:@"取消" style:SPAlertActionStyleDestructive handler:^(SPAlertAction * _Nonnull action) {
         NSLog(@"点击了取消");
     }];
-    action2.titleColor = SYSTEM_COLOR;
+    action2.titleColor = SYSTEM_BLUE_COLOR;
     
     [alertController addAction:action1];
     [alertController addAction:action2];
@@ -357,7 +358,7 @@
         NSLog(@"点击了第1个");
     }];
     // 设置第1个action的字体
-    action1.titleColor = SYSTEM_COLOR;
+    action1.titleColor = SYSTEM_BLUE_COLOR;
     
     // SPAlertActionStyleDestructive默认文字为红色(可修改)
     SPAlertAction *action2 = [SPAlertAction actionWithTitle:@"第2个" style:SPAlertActionStyleDestructive handler:^(SPAlertAction * _Nonnull action) {
@@ -385,7 +386,7 @@
     SPAlertAction *action = [SPAlertAction actionWithTitle:@"取消" style:SPAlertActionStyleCancel handler:^(SPAlertAction * _Nonnull action) {
         NSLog(@"点击了取消");
     }];
-    action.titleColor = SYSTEM_COLOR;
+    action.titleColor = SYSTEM_BLUE_COLOR;
     [alertController addAction:action];
     [self presentViewController:alertController animated:YES completion:nil];
 }
@@ -402,7 +403,7 @@
     SPAlertAction *action2 = [SPAlertAction actionWithTitle:@"确定" style:SPAlertActionStyleDefault handler:^(SPAlertAction * _Nonnull action) {
         NSLog(@"确定");
     }];
-    action2.titleColor = SYSTEM_COLOR;
+    action2.titleColor = SYSTEM_BLUE_COLOR;
     action2.enabled = NO;
     self.sureAction = action2;
     
@@ -425,33 +426,6 @@
         textField.clearButtonMode = UITextFieldViewModeAlways;
         [textField addTarget:self action:@selector(textFieldDidChanged:) forControlEvents:UIControlEventEditingChanged];
     }];
-    [self presentViewController:alertController animated:YES completion:nil];
-}
-
-- (void)alertTest8 {
-    SPAlertController *alertController = [SPAlertController alertControllerWithTitle:@"我是主标题" message:@"我是副标题" preferredStyle:SPAlertControllerStyleAlert animationType:SPAlertAnimationTypeDefault];
-    alertController.needDialogBlur = _lookBlur;
-    alertController.backgroundColor = [UIColor colorWithRed:31.0/255.0 green:31.0/255.0 blue:31.0/255.0 alpha:1.0];
-    alertController.titleColor = [UIColor colorWithWhite:1.0 alpha:0.9];
-    alertController.messageColor = [UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.0];
-    alertController.separatorColor = [UIColor colorWithRed:65.0/255.0 green:65.0/255.0 blue:65.0/255.0 alpha:1.0];
-    
-    SPAlertAction *action1 = [SPAlertAction actionWithTitle:@"确定" style:SPAlertActionStyleDefault handler:^(SPAlertAction * _Nonnull action) {
-        NSLog(@"点击了确定");
-    }];
-    action1.titleColor = [UIColor colorWithWhite:1.0 alpha:0.9];
-    
-    
-    // SPAlertActionStyleDestructive默认文字为红色(可修改)
-    SPAlertAction *action2 = [SPAlertAction actionWithTitle:@"取消" style:SPAlertActionStyleDestructive handler:^(SPAlertAction * _Nonnull action) {
-        NSLog(@"点击了取消");
-    }];
-    // 设置第2个action的颜色
-    action2.titleColor = [UIColor colorWithRed:0/255.0 green:82.0/255.0 blue:255.0/255.0 alpha:1.0];
-    
-    [alertController addAction:action2];
-    [alertController addAction:action1];
-    
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
@@ -523,7 +497,7 @@
     NSString *desc = @"可能是一个电话号码";
     NSString *totalTitle = [NSString stringWithFormat:@"%@%@",num,desc];
     NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] initWithString:totalTitle];
-    [attrTitle addAttribute:NSForegroundColorAttributeName value:SYSTEM_COLOR range:[totalTitle rangeOfString:num]];
+    [attrTitle addAttribute:NSForegroundColorAttributeName value:SYSTEM_BLUE_COLOR range:[totalTitle rangeOfString:num]];
     alertController.attributedTitle = attrTitle;
     
     SPAlertAction *action1 = [SPAlertAction actionWithTitle:@"取消" style:SPAlertActionStyleDestructive handler:^(SPAlertAction * _Nonnull action) {
@@ -533,7 +507,7 @@
     SPAlertAction *action2 = [SPAlertAction actionWithTitle:@"确定" style:SPAlertActionStyleDefault handler:^(SPAlertAction * _Nonnull action) {
         NSLog(@"点击了确定");
     }];
-    action2.titleColor = SYSTEM_COLOR;
+    action2.titleColor = SYSTEM_BLUE_COLOR;
 
     [alertController addAction:action1];
     [alertController addAction:action2];
@@ -615,7 +589,6 @@
 - (void)customTest4 {
     
     ShoppingCartView *shoppingCartView = [[ShoppingCartView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth-70, ScreenHeight)];
-    shoppingCartView.backgroundColor = [UIColor whiteColor];
     
     SPAlertController *alertController = [SPAlertController alertControllerWithCustomAlertView:shoppingCartView preferredStyle:SPAlertControllerStyleActionSheet animationType:SPAlertAnimationTypeFromRight];
     [self presentViewController:alertController animated:YES completion:nil];
@@ -625,7 +598,6 @@
 - (void)customTest5 {
     
     ShoppingCartView *shoppingCartView = [[ShoppingCartView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth-70, ScreenHeight)];
-    shoppingCartView.backgroundColor = [UIColor whiteColor];
     
     SPAlertController *alertController = [SPAlertController alertControllerWithCustomAlertView:shoppingCartView preferredStyle:SPAlertControllerStyleActionSheet animationType:SPAlertAnimationTypeFromLeft];
     [self presentViewController:alertController animated:YES completion:nil];
@@ -634,7 +606,6 @@
 // 示例23:自定义整个对话框(actionSheet样式从顶部弹出)
 - (void)customTest6 {
     CommodityListView *commodityListView = [[CommodityListView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 200)];
-    commodityListView.backgroundColor = [UIColor whiteColor];
     
     SPAlertController *alertController = [SPAlertController alertControllerWithCustomAlertView:commodityListView preferredStyle:SPAlertControllerStyleActionSheet animationType:SPAlertAnimationTypeFromTop];
     [self presentViewController:alertController animated:YES completion:nil];
@@ -643,7 +614,6 @@
 // 示例24:自定义整个对话框(pickerView)
 - (void)customTest7 {
     PickerView *pickerView = [[PickerView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 240)];
-    pickerView.backgroundColor = [UIColor whiteColor];
     pickerView.cancelClickedBlock = ^{
         [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
     };
@@ -680,7 +650,7 @@
         NSLog(@"点击了第1个");
     }];
     // 设置第1个action的颜色
-    action1.titleColor = SYSTEM_COLOR;
+    action1.titleColor = SYSTEM_BLUE_COLOR;
     
     // SPAlertActionStyleDestructive默认文字为红色(可修改)
     SPAlertAction *action2 = [SPAlertAction actionWithTitle:@"第2个" style:SPAlertActionStyleDestructive handler:^(SPAlertAction * _Nonnull action) {
@@ -725,7 +695,7 @@
     alertController.needDialogBlur = NO; // 去除对话框的毛玻璃
     alertController.cornerRadius = 0; // 去除圆角半径
     // 设置背景遮罩为毛玻璃样式
-    [alertController setBackgroundViewAppearanceStyle:SPBackgroundViewAppearanceStyleBlurExtraLight alpha:1.0];
+    [alertController setBackgroundViewAppearanceStyle:UIBlurEffectStyleExtraLight alpha:1.0];
     [self presentViewController:alertController animated:NO completion:^{
         // 执行popView的弹出动画
         [popView open];
@@ -881,7 +851,7 @@
     SPAlertAction *action2 = [SPAlertAction actionWithTitle:@"我的文字太长了，所以垂直排列显示更多文字，垂直后依然显示不全则压缩字体，压缩到0.5倍封顶" style:SPAlertActionStyleDefault handler:^(SPAlertAction * _Nonnull action) {
         NSLog(@"点击了'上九天揽月，下五洋捉鳖'");
     }];
-    action2.titleColor = SYSTEM_COLOR;
+    action2.titleColor = SYSTEM_BLUE_COLOR;
 
     [alertController addAction:action1];
     [alertController addAction:action2];
@@ -904,7 +874,7 @@
     SPAlertAction *action2 = [SPAlertAction actionWithTitle:@"我的文字太长了，会压缩字体" style:SPAlertActionStyleDefault handler:^(SPAlertAction * _Nonnull action) {
         NSLog(@"点击了'我的文字太长了，会压缩字体'");
     }];
-    action2.titleColor = SYSTEM_COLOR;
+    action2.titleColor = SYSTEM_BLUE_COLOR;
     
     [alertController addAction:action1];
     [alertController addAction:action2];
@@ -915,7 +885,7 @@
 #pragma mark ========================================== 背景毛玻璃示例 =======================================================
 
 // 示例33:背景外观样式
-- (void)backgroundAppearanceStyleTest:(SPBackgroundViewAppearanceStyle)appearanceStyle {
+- (void)backgroundAppearanceStyleTest:(UIBlurEffectStyle)appearanceStyle {
     SPAlertController *alertController = [SPAlertController alertControllerWithTitle:@"我是主标题" message:@"我是副标题" preferredStyle:SPAlertControllerStyleActionSheet animationType:SPAlertAnimationTypeFromBottom];
     
     alertController.needDialogBlur = _lookBlur;
@@ -934,12 +904,7 @@
     [alertController addAction:action2];
     [alertController addAction:action3];
     
-    if (appearanceStyle == SPBackgroundViewAppearanceStyleTranslucent) {
-        // 0.5是半透明(默认),设置1为不透明,0为全透明
-        [alertController setBackgroundViewAppearanceStyle:appearanceStyle alpha:0.5];
-    } else {
-        [alertController setBackgroundViewAppearanceStyle:appearanceStyle alpha:1];
-    }
+    [alertController setBackgroundViewAppearanceStyle:appearanceStyle alpha:1];
     
     [self presentViewController:alertController animated:YES completion:nil];
 }
@@ -1019,7 +984,7 @@
     self.dataSource = @[
                         @[@"actionSheet样式 默认动画(从底部弹出,有取消按钮)",@"actionSheet样式 默认动画(从底部弹出,无取消按钮)",@"actionSheet样式 从顶部弹出(无标题)",@"actionSheet样式 从顶部弹出(有标题)",@"actionSheet样式 水平排列（有取消样式按钮）",@"actionSheet样式 水平排列（无取消样式按钮)",@"actionSheet样式 action含图标",@"actionSheet样式 模拟多分区样式(>=iOS11才支持)"
                           ],
-                        @[@"alert样式 默认动画(收缩动画)",@"alert样式 发散动画",@"alert样式 渐变动画",@"alert样式 垂直排列2个按钮",@"alert样式 水平排列2个以上的按钮",@"alert样式 设置头部图标",@"alert样式 含有文本输入框",@"alert样式 自定义样式"
+                        @[@"alert样式 默认动画(收缩动画)",@"alert样式 发散动画",@"alert样式 渐变动画",@"alert样式 垂直排列2个按钮",@"alert样式 水平排列2个以上的按钮",@"alert样式 设置头部图标",@"alert样式 含有文本输入框"
                           ],
                         @[@"富文本(action设置富文本)",@"富文本(头部设置富文本)"
                           ],
@@ -1027,7 +992,7 @@
                           ],
                         @[@"当按钮过多时，以scrollView滑动",@"当文字和按钮同时过多时,二者都可滑动",@"含有文本输入框，且文字过多",@"action上的文字过长（垂直）",@"action上的文字过长（水平）"
                           ],
-                        @[@"透明黑色背景样式(背景无毛玻璃,默认)",@"背景毛玻璃Dark样式",@"背景毛玻璃ExtraLight样式",@"背景毛玻璃Light样式"
+                        @[@"背景毛玻璃Dark样式",@"背景毛玻璃ExtraLight样式",@"背景毛玻璃Light样式"
                           ]
                         ];
 }
@@ -1062,7 +1027,7 @@
 - (void)changeBackgroundImage:(UIButton *)sender {
     if (!sender.selected) {
         NSInteger c = 1+(arc4random() % 2);
-        self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"背景%li.jpg",c]]];
+        self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"背景%li.jpg",(long)c]]];
         sender.backgroundColor = [UIColor orangeColor];
     } else {
         self.tableView.backgroundView = nil;
@@ -1096,7 +1061,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSInteger index = [[dic valueForKey:[NSString stringWithFormat:@"%ld",section]] integerValue];
+    NSInteger index = [[dic valueForKey:[NSString stringWithFormat:@"%ld",(long)section]] integerValue];
     if (index == 1) {
         return 0;
     } else {
@@ -1111,8 +1076,9 @@
     cell.textLabel.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
     if (_haveBg) {
         cell.backgroundColor = [UIColor clearColor];
+        cell.textLabel.textColor = [UIColor blackColor];
     } else {
-        cell.backgroundColor = [UIColor whiteColor];
+        cell.textLabel.textColor = [UIColor colorPairsWithLightColor:[UIColor blackColor] darkColor:[UIColor whiteColor]];
     }
     cell.textLabel.text = self.dataSource[indexPath.section][indexPath.row];
     return cell;
@@ -1139,6 +1105,14 @@
     UILabel *titleLabel = [header viewWithTag:200];
     titleLabel.text = self.titles[section];
     header.tag = 100 + section;
+    if (_haveBg)
+    {
+        titleLabel.textColor = [UIColor blackColor];
+    }
+    else
+    {
+        titleLabel.textColor = [UIColor colorPairsWithLightColor:[UIColor blackColor] darkColor:[UIColor whiteColor]];
+    }
     return header;
 }
 
@@ -1146,7 +1120,7 @@
     
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)tap.view;
     NSInteger section = header.tag - 100;
-    NSString *key = [NSString stringWithFormat:@"%ld",section];
+    NSString *key = [NSString stringWithFormat:@"%ld",(long)section];
     if ([dic[key] integerValue] == 0) {
         [dic setValue:@(1) forKey:key];
     } else {
@@ -1215,9 +1189,6 @@
             case 6:
                 [self alertTest7];
                 break;
-            case 7:
-                [self alertTest8];
-                break;
         }
     } else if (indexPath.section == 2) { // 富文本区
         switch (indexPath.row) {
@@ -1282,16 +1253,13 @@
     } else {
         switch (indexPath.row) { // 毛玻璃区
             case 0:
-                [self backgroundAppearanceStyleTest:SPBackgroundViewAppearanceStyleTranslucent];
+                [self backgroundAppearanceStyleTest:UIBlurEffectStyleDark];
                 break;
             case 1:
-                [self backgroundAppearanceStyleTest:SPBackgroundViewAppearanceStyleBlurDark];
+                [self backgroundAppearanceStyleTest:UIBlurEffectStyleExtraLight];
                 break;
             case 2:
-                [self backgroundAppearanceStyleTest:SPBackgroundViewAppearanceStyleBlurExtraLight];
-                break;
-            case 3:
-                [self backgroundAppearanceStyleTest:SPBackgroundViewAppearanceStyleBlurLight];
+                [self backgroundAppearanceStyleTest:UIBlurEffectStyleLight];
                 break;
         }
     }

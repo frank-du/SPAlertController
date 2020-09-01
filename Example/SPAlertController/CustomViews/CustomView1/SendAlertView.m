@@ -8,6 +8,8 @@
 
 #import "SendAlertView.h"
 #import "SPTextView.h"
+#import "UIColor+DarkMode.h"
+
 @interface SendAlertView() <UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *userIconView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -27,6 +29,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.backgroundColor = [UIColor colorPairsWithLightColor:[UIColor whiteColor] darkColor:[UIColor colorWithRed:44.0 / 255.0 green:44.0 / 255.0 blue:44.0 / 255.0 alpha:1.0]];
     self.userIconView.layer.cornerRadius = 4.0;
     self.userIconView.layer.masksToBounds = YES;
     self.textView.delegate = self;
@@ -34,7 +37,7 @@
     self.textView.layer.borderColor = [[UIColor grayColor] colorWithAlphaComponent:0.3].CGColor;
     self.textView.placeholder = @"给朋友留言";
     self.textView.placeholderColor = [UIColor lightGrayColor];
-    
+    self.textView.backgroundColor = [UIColor colorPairsWithLightColor:[UIColor colorWithRed:247.0 / 255.0 green:247.0 / 255.0 blue:247.0 / 255.0 alpha:1.0] darkColor:[UIColor colorWithRed:54.0 / 255.0 green:54.0 / 255.0 blue:54.0 / 255.0 alpha:1.0]];
    _textH = ceil(self.textView.font.lineHeight) + self.textView.textContainerInset.top + self.textView.textContainerInset.bottom;
 
 }
